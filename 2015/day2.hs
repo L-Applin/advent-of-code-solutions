@@ -3,7 +3,7 @@
   https://adventofcode.com/2015/day/2
 -}
 
-
+module Day2 where
 import Data.List.Split
 type Box = (Int, Int, Int)
 
