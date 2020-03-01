@@ -8,20 +8,16 @@ module Day3 where
 
 type Pos = (Int, Int) -- n/s, e,w
 type Dir = Char
-north = '^'
-east = '>'
-west = '<'
-south = 'v'
 
 data Move = Move { dir :: Dir
                  , pos :: Pos
                  } deriving (Show, Eq)
 
-northMove = Move north (0, 1)
-eastMove =  Move east  (1, 0)
-southMove = Move south (0, -1)
-westMove =  Move west  (-1, 0)
-noMove =    Move 'x'   (0, 0)
+northMove = Move '^' (0, 1)
+eastMove =  Move '>' (1, 0)
+southMove = Move 'v' (0, -1)
+westMove =  Move '<' (-1, 0)
+noMove =    Move 'x' (0, 0)
 
 addPos :: Pos -> Pos -> Pos 
 addPos (a, b) (c, d) = (a+c, b+d)
