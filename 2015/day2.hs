@@ -1,3 +1,9 @@
+{-
+  Calculate the amount of paper required to wrap a presentbox (with some extra).
+  https://adventofcode.com/2015/day/2
+-}
+
+
 import Data.List.Split
 type Box = (Int, Int, Int)
 
