@@ -10,12 +10,9 @@ smallestSidePerimeter :: Box -> Int
 smallestSidePerimeter (l, w, h) = (l*w*h) + (x+x+y+y) where
   [x, y, xs] = sort [l, w, h]
 
-perimeterLine :: String -> Int
-perimeterLine = smallestSidePerimeter . parseLine
-
 main :: IO Int
 main = do
   file <- readFile "day2-data.txt"
-  let sizes = map perimeterLine (lines file)
+  let sizes = map (smallestSidePerimeter . parseLine) (lines file)
   return $ sum sizes
   
