@@ -2,7 +2,6 @@ module Day6 where
 import Data.List.Split
 import Data.IntSet (IntSet)
 import qualified Data.IntSet as IntSet
- -- import Data.IntSet.\\
 
 -- data representation
 type Pos = (Int, Int)
@@ -39,29 +38,11 @@ parseActionType strs = case (head strs) of
                          "toggle" -> Toggle
                          _        -> None
 
-
 gridUpdate :: IntSet -> Action -> IntSet
 gridUpdate grid Action{actionType=SwitchOn, start=s, end=e} =  grid `IntSet.union` (createAllIndices s e) -- add grid $ createAllIndices s e where
-  -- add grid []      = grid
-  -- add grid indices = foldl' set1 grid indices
 gridUpdate grid Action{actionType=SwitchOff, start=s, end=e} = grid IntSet.\\ (createAllIndices s e) -- remove grid $ createAllIndices s e where
-  -- remove grid []      = grid
-  -- remove grid indices = foldl' set0 grid indices 
 gridUpdate grid Action{actionType=Toggle, start=s, end=e} = (grid IntSet.\\ indices) `IntSet.union` (indices IntSet.\\ grid) where -- Symmetric Difference
      indices = createAllIndices s e
-
-set0 :: [Int] -> Int -> [Int]
-set0 grid i = update grid (i, 0)
-
-set1 :: [Int] -> Int -> [Int]
-set1 grid i = update grid (i, 1)
-
-set10 :: [Int] -> Int -> [Int]
-set10 grid i = if grid!!i == 0 then update grid (i, 1) else update grid (i, 0)
-
-update :: [a] -> (Int, a) -> [a]
-update ls (i, val) = if i>length ls then ls else x ++ val : y where
-  (x, y) = splitAt i ls
 
 createIndices :: (Int, Int) -> (Int, Int) -> IntSet
 createIndices (a, b) (c, d) = IntSet.fromList [(a+b*1000)..(c+b*1000)]
