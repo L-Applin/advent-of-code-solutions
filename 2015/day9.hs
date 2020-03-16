@@ -8,8 +8,7 @@ type City = String
 type Path = ((City, City), Int)
 
 distances :: [Path] -> [City]  -> Int
-distances paths cities = sum
-                         $ mapAdjacent (\a -> \b -> cityLookup (a, b) paths) cities 
+distances paths cities = sum $ mapAdjacent (\a -> \b -> cityLookup (a, b) paths) cities 
 
 cityLookup :: (City, City) -> [Path] ->  Int
 cityLookup (a, b) paths = case (lookup (a, b) paths) of
