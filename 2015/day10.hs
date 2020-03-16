@@ -21,11 +21,12 @@ convertAll [] = []
 convertAll s  = convert f ++ convertAll r where
   (f, r) = splitOnDiff s
 
-applyN :: (a -> a) -> a -> Int -> a
-applyN f a 0 = a
-applyN f a i = applyN f (f a) (i - 1)
+applyN :: Int -> (a -> a) -> a -> a
+applyN 0 f a = a
+applyN 1 f a = f a
+applyN i f a = applyN (i-1) f (f a)
 
 main :: IO Int
-main = return $ length $ applyN convertAll input 50
+main = return $ length $ applyN 50 convertAll input
 
 
