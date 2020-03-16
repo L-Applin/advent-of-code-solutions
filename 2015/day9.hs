@@ -4,15 +4,8 @@ import Data.List.HT
 import Data.List.Split
 import qualified Data.Map.Strict as Map
 
-
 type City = String
--- cities :: [City]
--- cities = ["Q", "M", "T"]
-
 type Path = ((City, City), Int)
-dist :: [Path]
-dist = [(("Q","M"),10), (("M","T"),20), (("Q","T"),25)]
-
 
 distances :: [Path] -> [City]  -> Int
 distances paths cities = sum
@@ -31,8 +24,6 @@ parse str = ([c1, c2], ((c1, c2), read d)) where
   c1 = words!!0
   c2 = words!!2
   d = words!!4
-
-
 
 main :: IO ()
 main = do 
