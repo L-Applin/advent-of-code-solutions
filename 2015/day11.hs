@@ -3,7 +3,7 @@ import Data.Char
 type PasswordRule = String -> Bool
 
 input :: String
-input = "hxbxwxba"
+input  = "hxbxwxba"
 
 incChar :: Char -> Char
 incChar c   = chr (ord c + 1)
@@ -54,4 +54,4 @@ findNextPassword password = if (checkPassword password [doubleChar, threeConsecu
                                                                                                           else findNextPassword $ incWord password
 
 main :: IO String
-main = return $ findNextPassword input
+main = return $ findNextPassword $ incWord $ findNextPassword input
