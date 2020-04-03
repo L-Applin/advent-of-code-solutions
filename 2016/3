@@ -1,0 +1,28 @@
+module Day1_2 where
+
+import Day1
+import Data.List
+
+update' :: State -> [Pos] -> [Move] -> Pos
+update' (pos, _)   _       []     = pos 
+update' (pos, dir) visited (m:ms) = if pos `elem` visited then head $ intersect visited newlyVisited  
+                                                          else update' state' newlyVisited  ms
+                                                            where
+                                                              state'       = update (pos, dir) m
+                                                              (pos', _)    = state'
+                                                              newlyVisited = updateVisited visited pos pos'
+
+updateVisited :: [Pos] -> Pos -> Pos -> [Pos]
+updateVisited ls (a, b) (x, y) = ls ++ newlyVisited where
+  newlyVisited = if a == x then zip (map (const a) listBY) listBY 
+                           else zip listAX (map (const b) listAX)
+  listBY = makeList b y
+  listAX = makeList a x
+  makeList a b = if a <= b then [a..b-1]
+                           else reverse [b+1..a]
+
+
+main_2 :: IO Int
+main_2 = do
+  file <- readFile "day1-data.txt"
+  return $  distance $  update' initialState [] $ parseAll file 
