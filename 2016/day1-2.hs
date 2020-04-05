@@ -20,7 +20,7 @@ anyElem [x]    ls = if x `elem` ls then Just x
 anyElem (x:xs) ls = if x `elem` ls then Just x
                                    else anyElem xs ls
 
-updateVisited :: Pos -> Pos -> [Pos]
+updateVisited :: Pos -> Pos -> [Pos] 
 updateVisited (a, b) (x, y) = if a == x then zip (map (const a) listBY) listBY 
                                         else zip listAX (map (const b) listAX)
                                           where
