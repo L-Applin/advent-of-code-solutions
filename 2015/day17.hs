@@ -1,4 +1,5 @@
 module Day17 where
+import Data.List
 
 containers :: [Int]
 containers = [43, 3, 4, 10, 21, 44, 4, 6, 47, 41, 34, 17, 17, 44, 36, 31, 46, 9, 27, 38]
@@ -19,10 +20,13 @@ check i xs = sum xs == i
 checkAll :: Int -> [[Int]] -> Int
 checkAll i xs = sum $ map (\is -> if check i is then 1 else 0) xs
 
+checkSolution :: [Int] -> Int -> Int 
+checkSolution bucket i = checkAll 150 (combinations i bucket)
+
 main :: Int
-main = sum $ map f [4..(length containers)] where
-  f i = checkAll 150 (combinations i containers)
+main = sum $ map (checkSolution containers) [4..(length containers)] 
 
-
-                                                                                                    
-                                                                                                    
+main_2 :: Int
+main_2 = head
+         $ filter (/= 0) 
+         $ map (checkSolution containers) [4..(length containers)]
