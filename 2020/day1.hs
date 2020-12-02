@@ -15,6 +15,6 @@ findProduct i xs = a * b where
 
 main :: IO Int 
 main = do
-  content <- readFile "input.txt"
+  content <- readFile "input-day1.txt"
   let allLines = map read $ lines content 
   return $ findProduct 2020 allLines
