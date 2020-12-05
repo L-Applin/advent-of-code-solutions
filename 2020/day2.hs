@@ -37,10 +37,24 @@ countBools bs = length $ filter f bs where
   f (Just b) = b
   f Nothing  = False
 
-main :: IO Int
-main = do
+doMain :: (Password -> Bool) -> IO Int
+doMain validator = do
   content <- readFile "day2-data.txt"
   let parsingRes = map (runParser pwdParser) $ lines content
-  let maybeBools = map (fmap $ validatePwd . snd) parsingRes
+  let maybeBools = map (fmap $ validator . snd) parsingRes
   return $ countBools maybeBools 
   
+main_1 :: IO Int
+main_1 = doMain validatePwd
+
+-- part 2
+xor :: Bool -> Bool -> Bool
+xor a b = (not a && b) || (a && not b) 
+
+validatePwdPosition :: Password -> Bool
+validatePwdPosition (Password (n,m) c p) = first `xor` second where
+  first  = p!!(n-1) == c
+  second = p!!(m-1) == c 
+
+main :: IO Int
+main = doMain validatePwdPosition 
