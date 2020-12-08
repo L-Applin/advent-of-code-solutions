@@ -1,6 +1,7 @@
 import Data.Maybe
 import Parsers
 import Control.Applicative
+import Data.Char
 import Data.List 
 import Data.List.Split
 
@@ -64,14 +65,17 @@ validateHgt s = doValidate <$> input where
   input = fmap snd $ runParser heightParser s 
                                                            
 validateHcl :: String -> Bool
-validateHcl s = length s == 4 && y > 2020 && y < 2030 where y = read s
+validateHcl s = length s == 7 && head s == '#' && (allHex $ tail s) where
+  allHex v = allTrue $ map (\c -> c `elem` "1234567890abcdef") v
 
 validateEcl :: String -> Bool
-validateEcl s = length s == 4 && y > 2020 && y < 2030 where y = read s
+validateEcl s = s `elem` ["amb","blu", "brn", "gry", "grn", "hzl", "oth"]
 
 validatePid :: String -> Bool
-validatePid s = length s == 4 && y > 2020 && y < 2030 where y = read s
+validatePid s = length s == 9 && (allTrue $ map isDigit s)
 
+allTrue :: [Bool] -> Bool
+allTrue bs = foldl (&&) True bs
                                                             
 -- parsing of passport info
 heightParser :: Parser (Int, String)
@@ -95,6 +99,6 @@ main = do
   content <- readFile "day4-data.txt"
   let passData = cleanData $ lines content 
   let passports = map (snd . fromJust . (runParser passportParser)) passData 
-  print $ length $ filter isValid passports
+  print $ length $ filter isValidWithValidation passports
   
 
